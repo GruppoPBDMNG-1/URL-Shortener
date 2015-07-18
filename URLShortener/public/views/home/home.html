@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>URL Shortener.com</h1>
+            <h3>Create your URL</h3>
+            <p align="left">
+                Long URL : <input type="text" ng-model="longURL"> &nbsp;
+                &nbsp;
+                <button ng-click="short()">Shorten URL</button>
+                &nbsp; <font color="#808080"> {{risp}} </font>
+            </p>
+            <br>
+            <h3>(Optional) Custom Shorten Url</h3>
+            <p>
+                Short URL : <input type="text" ng-model="shortURL"> &nbsp;
+                &nbsp;
+                <button ng-click="save()">Custom Shorten URL</button>
+                &nbsp; <font color="#808080">{{ris}}</font>
+            </p>
+            <br>
+            <h3>URL Details</h3>
+            <p align="left">
+                Insert short URL : <input type="text" ng-model="shortUrl">
+            </p>
+            <p>
+                <button ng-click="stats()">Stats</button>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <button ng-click="view()">Open View</button>
+                &nbsp; <font color="#808080">{{name}}</font>
+            </p>
+            <br>
+            <ul style="color: #808080">
+                <li ng-repeat="x in nome">{{ x.name+ " " + x.value }}</li>
+            </ul>
+            {{e}} {{er}}
+        </div>
+    </div>
+</div>
+

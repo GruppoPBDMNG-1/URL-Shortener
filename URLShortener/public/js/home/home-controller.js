@@ -7,7 +7,7 @@ angular.module('URLShortener')
 								};
 
   $scope.shortU = function() {
-  									return "http://localhost:8080/convertShortUrl?longUrl="
+  									return "http://localhost:8080/convertToShortUrl?longUrl="
   											+ $scope.longURL;
   								}
 

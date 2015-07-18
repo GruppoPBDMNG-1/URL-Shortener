@@ -21,7 +21,7 @@ public class App {
 
 
 
-    public static JSONObject convertShortUrl(String longUrl) {
+    public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
 
 
@@ -55,10 +55,10 @@ public class App {
             return "";
         });
 
-        get("/convertShortUrl", (request, response) -> {
+        get("/convertToShortUrl", (request, response) -> {
             String longUrl = request.queryParams(LONGURL);
             // response.redirect("/");
-            return convertShortUrl(longUrl).toString();
+            return convertToShortUrl(longUrl).toString();
         });
 
         before((request, response) -> {

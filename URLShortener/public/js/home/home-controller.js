@@ -25,7 +25,7 @@ angular.module('URLShortener')
   												.success(
   														function(risposta) {
   															$scope.ss = risposta.responseData;
-  															if ($scope.ss.error == "okay") {
+  															if ($scope.ss.result == "okay") {
   																$scope.nuovo = $scope.ss.shortUrl;
   																$scope.risp = "Your short URL:  "
   																		+ $scope.nuovo;

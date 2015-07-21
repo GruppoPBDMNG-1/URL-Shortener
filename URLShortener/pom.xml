@@ -234,7 +234,7 @@
                         <argument>-noverify</argument>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>URLShortener.App</argument>
+                        <argument>URLShortener.SparkServer.SparkServer</argument>
                         <argument>server</argument>
                         <argument>URLShortener.yml</argument>
                     </arguments>
@@ -267,7 +267,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>URLShortener.App</mainClass>
+                                    <mainClass>URLShortener.SparkServer.SparkServer</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

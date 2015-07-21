@@ -1,4 +1,4 @@
-package URLShortener;
+package URLShortener.SparkServer;
 
 import static spark.Spark.*;
 
@@ -8,10 +8,10 @@ import static spark.Spark.get;
 
 import org.json.JSONObject;
 
-public class App {
+public class SparkServer {
 
 
-    private  static final String ERROR = "error";
+    private  static final String RESULT = "result";
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
@@ -27,16 +27,14 @@ public class App {
 
         if (longUrl.equalsIgnoreCase("undefined")
             || longUrl.equalsIgnoreCase("")) {
-            data.put(ERROR, EMPTY_LONGURL);
+            data.put(RESULT, EMPTY_LONGURL);
         } else {
             String shortUrl = GenerateShortUrl
                 .generateShortUrl(longUrl);
-          //  boolean isCreated = UrlAssociation.createNewAssociation(shortUrl,
-          //      longUrl);
-          //  if (isCreated) {
-                data.put(ERROR, OKAY);
+          {
+                data.put(RESULT, OKAY);
                 data.put(SHORTURL, shortUrl);
-           // }
+            }
 
         }
             JSONObject dataReturn = new JSONObject();

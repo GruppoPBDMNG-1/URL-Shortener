@@ -9,8 +9,7 @@
                 Long URL : <input type="text" ng-model="longURL"> &nbsp;
                 &nbsp;
                 <button ng-click="genShort()">Shorten URL</button>
-                &nbsp; {{risp}} &nbsp; {{shortU}}<a href ng-click="goLong()">
-                {{link}}</a>
+                &nbsp; {{risp}} &nbsp; {{shortU}}<a href ng-click="goLong()">{{link}}</a>
 
             </p>
             <br>
@@ -20,8 +19,7 @@
                 Short URL : <input type="text" ng-model="shortURL"> &nbsp;
                 &nbsp;
                 <button ng-click="save()">Custom Shorten URL</button>
-                &nbsp; {{ris}} &nbsp; {{detail}}<a href ng-click="goCustomLong()">
-                {{linkCustom}}</a>
+                &nbsp; {{ris}} &nbsp; {{detail}}<a href ng-click="goCustomLong()">{{linkCustom}}</a>
             </p>
             <br>
             <h3>URL Details</h3>
@@ -43,9 +41,9 @@
 
             {{error}} {{error2}}
 
-            <canvas id="myLineChart" width="900" height="450"></canvas>
+           <!-- <canvas id="myLineChart" width="900" height="450"></canvas>
             <br>
-            <div id="placeholder"></div>
+            <div id="placeholder"></div> -->
 
         </div>
     </div>

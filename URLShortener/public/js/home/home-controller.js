@@ -41,6 +41,8 @@ angular.module('URLShortener')
    																$scope.shortU = "Your short URL:  ";
    																$scope.link = $scope.nuovo;
 
+   															}else{
+   															    $scope.risp = $scope.ss.result;
    															}
    														});
 

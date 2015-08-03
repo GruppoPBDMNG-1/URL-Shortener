@@ -1,11 +1,11 @@
 package URLShortener.Utility;
 
-
-
-
 import java.util.HashMap;
 import java.util.Random;
 
+/*
+ * URL Shortener
+ */
 public class URLShortener {
     // storage for generated keys
     private HashMap<String, String> keyMap; // key-url map
@@ -19,16 +19,63 @@ public class URLShortener {
     private Random myRand; // Random object used to generate random integers
     private int keyLength; // the key length in URL defaults to 8
 
+    // Default Constructor
+    URLShortener() {
+        keyMap = new HashMap<String, String>();
+        valueMap = new HashMap<String, String>();
+        myRand = new Random();
+        keyLength = 8;
+        myChars = new char[62];
+        for (int i = 0; i < 62; i++) {
+            int j = 0;
+            if (i < 10) {
+                j = i + 48;
+            } else if (i > 9 && i <= 35) {
+                j = i + 55;
+            } else {
+                j = i + 61;
+            }
+            myChars[i] = (char) j;
+        }
+        domain = "http://fkt.in";
+    }
+
     // Constructor which enables you to define tiny URL key length and base URL
     // name
     public URLShortener(int lenght, String newDomain) {
-
+        this();
         this.keyLength = lenght;
         if (!newDomain.isEmpty()) {
             newDomain = sanitizeURL(newDomain);
             domain = newDomain;
         }
     }
+
+    // shortenURL
+    // the public method which can be called to shorten a given URL
+    public String shortenURL(String longURL) {
+        String shortURL = "";
+        if (validateURL(longURL)) {
+            longURL = sanitizeURL(longURL);
+            if (valueMap.containsKey(longURL)) {
+                shortURL = domain + "/" + valueMap.get(longURL);
+            } else {
+                shortURL = domain + "/" + getKey(longURL);
+            }
+        }
+        // add http part
+        return shortURL;
+    }
+
+
+
+    // Validate URL
+    // not implemented, but should be implemented to check whether the given URL
+    // is valid or not
+    boolean validateURL(String url) {
+        return true;
+    }
+
     // sanitizeURL
     // This method should take care various issues with a valid url
     // e.g. www.google.com,www.google.com/, http://www.google.com,
@@ -46,32 +93,10 @@ public class URLShortener {
             url = url.substring(0, url.length() - 1);
         return url;
     }
-    // shortenURL
-    // the public method which can be called to shorten a given URL
-    public String shortenURL(String longURL) {
-        String shortURL = "";
-        if (validateURL(longURL)) {
-            longURL = sanitizeURL(longURL);
-            if (valueMap.containsKey(longURL)) {
-                shortURL = domain + "/" + valueMap.get(longURL);
-            } else {
-                shortURL = domain + "/" + getKey(longURL);
-            }
-        }
-        // add http part
-        return shortURL;
-    }
-
-    // Validate URL
-    // not implemented, but should be implemented to check whether the given URL
-    // is valid or not
-    boolean validateURL(String url) {
-        return true;
-    }
 
     /*
-	 * Get Key method
-	 */
+     * Get Key method
+     */
     private String getKey(String longURL) {
         String key;
         key = generateKey();
@@ -89,6 +114,7 @@ public class URLShortener {
             for (int i = 0; i <= keyLength; i++) {
                 key += myChars[myRand.nextInt(62)];
             }
+            // System.out.println("Iteration: "+ counter + "Key: "+ key);
             if (!keyMap.containsKey(key)) {
                 flag = false;
             }

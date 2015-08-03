@@ -17,7 +17,7 @@ public class SparkServer {
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
 
-    
+
     public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();

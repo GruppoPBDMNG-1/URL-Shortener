@@ -2,11 +2,10 @@ package URLShortener.SparkServer;
 
 import static spark.Spark.*;
 
-import URLShortener.Utility.URLShortener;
+import URLShortener.Utility.*;
 
 import URLShortener.util.*;
 import static spark.Spark.get;
-
 import org.json.JSONObject;
 
 public class SparkServer {
@@ -16,17 +15,24 @@ public class SparkServer {
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
+    private static StringMessageManager message = StringMessageManager.getIstance();
 
-    
-    public static JSONObject convertToShortUrl(String longUrl) {
-        JSONObject data = new JSONObject();
+
+
+    public static JSONObject convertToShortUrl(String longUrl) {JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
-
         URLShortener u = new URLShortener(4, "www.sht.com/");
+
         String shortUrl = u.shortenURL(longUrl);
 
-        data.put(RESULT, OKAY);
-        data.put(SHORTURL, shortUrl);
+        if (ShortURLData.saveShortLongURL(shortUrl,
+            longUrl)) {
+            data.put(RESULT, OKAY);
+            data.put(SHORTURL, shortUrl);
+        } else {
+            data.put(RESULT, message.getMessage("CONVERT_ERROR"));
+        }
+
         response.put(JSON, data);
 
         return response;

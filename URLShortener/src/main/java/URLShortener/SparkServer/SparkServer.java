@@ -3,7 +3,8 @@ package URLShortener.SparkServer;
 //test  03.08
 import static spark.Spark.*;
 
-import URLShortener.Utility.GenerateShortUrl;
+import URLShortener.Utility.URLShortener;
+
 import URLShortener.util.*;
 import static spark.Spark.get;
 
@@ -11,38 +12,26 @@ import org.json.JSONObject;
 
 public class SparkServer {
 
-
+    private static final String JSON = "responseData";
     private  static final String RESULT = "result";
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
-    private static final String DATA = "responseData";
-
-    private  static final String EMPTY_LONGURL = "Empty long Url";
 
 
 
     public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
 
+        URLShortener u = new URLShortener(4, "www.sht.com/");
+        String shortUrl = u.shortenURL(longUrl);
 
-        if (longUrl.equalsIgnoreCase("undefined")
-            || longUrl.equalsIgnoreCase("")) {
-            data.put(RESULT, EMPTY_LONGURL);
-        } else {
-            String shortUrl = GenerateShortUrl
-                .generateShortUrl(longUrl);
-          {
-                data.put(RESULT, OKAY);
-                data.put(SHORTURL, shortUrl);
-            }
+        data.put(RESULT, OKAY);
+        data.put(SHORTURL, shortUrl);
+        response.put(JSON, data);
 
-        }
-            JSONObject dataReturn = new JSONObject();
-            dataReturn.put(DATA, data);
-
-            return dataReturn;
-
+        return response;
     }
 
     public static void main(final String[] args) {

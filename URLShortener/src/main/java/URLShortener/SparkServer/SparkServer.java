@@ -2,11 +2,10 @@ package URLShortener.SparkServer;
 
 import static spark.Spark.*;
 
-import URLShortener.Utility.URLShortener;
+import URLShortener.Utility.*;
 
 import URLShortener.util.*;
 import static spark.Spark.get;
-
 import org.json.JSONObject;
 
 public class SparkServer {
@@ -16,19 +15,65 @@ public class SparkServer {
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
+    private static StringMessageManager message = StringMessageManager.getIstance();
 
 
     public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
-
         URLShortener u = new URLShortener(4, "www.sht.com/");
+
         String shortUrl = u.shortenURL(longUrl);
 
-        data.put(RESULT, OKAY);
-        data.put(SHORTURL, shortUrl);
+        if (ShortURLData.saveShortLongURL(shortUrl,
+            longUrl)) {
+            data.put(RESULT, OKAY);
+            data.put(SHORTURL, shortUrl);
+        } else {
+            data.put(RESULT, message.getMessage("CONVERT_ERROR"));
+        }
+
         response.put(JSON, data);
 
+        return response;
+    }
+
+    public static JSONObject saveShort(String shortUrl, String longUrl){
+
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
+
+        if (!UndesiderableWords.checkUndesiderableWords(shortUrl)) {
+            data.put(RESULT, message.getMessage("UNDESIDERABLE_WORDS"));
+        } else {
+            if (ShortURLData.saveShortLongURL(shortUrl,
+                longUrl)) {
+                data.put(RESULT, OKAY);
+            } else {
+                data.put(RESULT, message.getMessage("USED_SHORTURL"));
+            }
+        }
+
+        response.put(JSON, data);
+
+        return response;
+    }
+
+    public static JSONObject viewWindow(String shortUrl) {
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
+
+        ShortURLData url = ShortURLData
+            .getURLData(shortUrl);
+        if (url != null) {
+            url.addNewClick();
+            data.put(RESULT, OKAY);
+            data.put(LONGURL, url.getLongUrl());
+        } else {
+            data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
+        }
+
+        response.put(JSON, data);
         return response;
     }
 
@@ -43,8 +88,18 @@ public class SparkServer {
 
         get("/convertToShortUrl", (request, response) -> {
             String longUrl = request.queryParams(LONGURL);
-            // response.redirect("/");
             return convertToShortUrl(longUrl).toString();
+        });
+
+        get("/saveShort", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            String longUrl = request.queryParams(LONGURL);
+            return saveShort(shortUrl, longUrl);
+        });
+
+        get("/viewWindow", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            return viewWindow(shortUrl);
         });
 
         before((request, response) -> {

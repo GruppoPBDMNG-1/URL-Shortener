@@ -2,38 +2,51 @@
     <div class="row">
         <div class="col-md-8">
             <h1>URL Shortener.com</h1>
-            <h3>Create your URL</h3>
+            <br>
+            <h3>Generate your Shorten URL</h3>
+
             <p align="left">
                 Long URL : <input type="text" ng-model="longURL"> &nbsp;
                 &nbsp;
-                <button ng-click="short()">Shorten URL</button>
-                &nbsp; <font color="#808080"> {{risp}} </font>
+                <button ng-click="genShort()">Shorten URL</button>
+                &nbsp; {{risp}} &nbsp; {{shortU}}<a href ng-click="goLong()">
+                {{link}}</a>
+
             </p>
             <br>
-            <h3>(Optional) Custom Shorten Url</h3>
+            <h3>(Optional) Custom Shorten URL</h3>
+
             <p>
                 Short URL : <input type="text" ng-model="shortURL"> &nbsp;
                 &nbsp;
                 <button ng-click="save()">Custom Shorten URL</button>
-                &nbsp; <font color="#808080">{{ris}}</font>
+                &nbsp; {{ris}} &nbsp; {{detail}}<a href ng-click="goCustomLong()">
+                {{linkCustom}}</a>
             </p>
             <br>
             <h3>URL Details</h3>
             <p align="left">
-                Insert short URL : <input type="text" ng-model="shortUrl">
+                Insert short URL : <input type="text" ng-model="shortUrl"> &nbsp;{{ristat}}
             </p>
             <p>
-                <button ng-click="stats()">Stats</button>
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <button ng-click="view()">Open View</button>
-                &nbsp; <font color="#808080">{{name}}</font>
+                <button ng-click="viewStats()">Stats</button>
+                <button ng-click="goweb()">Open page</button>
+                &nbsp; {{name}}
             </p>
             <br>
-            <ul style="color: #808080">
+            <ul>
                 <li ng-repeat="x in nome">{{ x.name+ " " + x.value }}</li>
             </ul>
-            {{e}} {{er}}
+            <ul>
+                <li ng-repeat="x in request">{{ x.key+ " " + x.value1 }}</li>
+            </ul>
+
+            {{error}} {{error2}}
+
+            <canvas id="myLineChart" width="900" height="450"></canvas>
+            <br>
+            <div id="placeholder"></div>
+
         </div>
     </div>
 </div>

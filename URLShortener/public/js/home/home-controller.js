@@ -1,42 +1,54 @@
 angular.module('URLShortener')
   .controller('HomeController', ['$scope', '$http', function ($scope, $http) {
 
-    $scope.resetAll = function() {
-									$scope.longURL = "";
-									$scope.shortURL = "";
-								};
+   $scope.resetUrl = function() {
+   									$scope.longURL = "";
+   									$scope.shortURL = "";
+   								};
 
-  $scope.shortU = function() {
-  									return "http://localhost:8080/convertToShortUrl?longUrl="
-  											+ $scope.longURL;
-  								}
+   								$scope.resetAlarm = function(){
+   									$scope.error = "";
+   									$scope.error2 = "";
+   								}
 
-  								$scope.short = function() {
+   								$scope.generate = function() {
+   									return "http://localhost:8080/convertToShortUrl?longUrl="
+   											+ $scope.longURL;
+   								}
 
-  									if ($scope.longURL.substring(0, 4)
-  											.localeCompare("www.") == '0'
-  											|| $scope.longURL.substring(0, 7)
-  													.localeCompare("http://") == '0'
-  											|| $scope.longURL.substring(0, 8)
-  													.localeCompare("https://") == '0'
-  											&& $scope.longURL.indexOf(" ") == '-1') {
-  										$http
-  												.get($scope.shortU())
-  												.success(
-  														function(risposta) {
-  															$scope.ss = risposta.responseData;
-  															if ($scope.ss.result == "okay") {
-  																$scope.nuovo = $scope.ss.shortUrl;
-  																$scope.risp = "Your short URL:  "
-  																		+ $scope.nuovo;
-  															}
-  														});
+   								$scope.genShort = function() {
 
-  									} else {
+   									$scope.risp="";
+   									$scope.shortU = "";
+   									$scope.link ="";
+                                       if($scope.longURL==null){
+                                       $scope.risp = "Empty long URL";
+                                       }else{
+   									if ( $scope.longURL.substring(0, 4)
+   											.localeCompare("www.") == '0'
+   											|| $scope.longURL.substring(0, 7)
+   													.localeCompare("http://") == '0'
+   											|| $scope.longURL.substring(0, 8)
+   													.localeCompare("https://") == '0'
+   											&& $scope.longURL.indexOf(" ") == '-1') {
+   										$http
+   												.get($scope.generate())
+   												.success(
+   														function(risposta) {
+   															$scope.ss = risposta.responseData;
+   															if ($scope.ss.result == "okay") {
+   																$scope.nuovo = $scope.ss.shortUrl;
+   																$scope.shortU = "Your short URL:  ";
+   																$scope.link = $scope.nuovo;
 
-  										$scope.risp = "Invalid long URL!";
-  									}
-  									$scope.resetAll();
-  								}
+   															}
+   														});
 
+   									} else {
+
+   										$scope.risp = "Invalid long URL";
+   									}
+                                   }
+   									$scope.resetUrl();
+   								}
   }]);

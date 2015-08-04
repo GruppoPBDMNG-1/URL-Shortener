@@ -3,7 +3,11 @@ angular.module('URLShortener', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.dat
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/home/home.html', 
+        templateUrl: 'views/home/home.html',
         controller: 'HomeController'})
+      .when('/analytics', {
+        templateUrl: 'views/home/analytics.html',
+        controller: 'AnalyticsController'
+      })
       .otherwise({redirectTo: '/'});
   }]);

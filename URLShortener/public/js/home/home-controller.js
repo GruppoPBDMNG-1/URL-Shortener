@@ -170,4 +170,14 @@ angular.module('URLShortener')
                                                             										$scope.name="Empty short URL";
                                                             									}
                                                             	                            }
+
+$scope.viewGraph = function() {
+
+
+                                															$window
+                                																	.open("/#/analytics");
+
+                                                            }
+
+
   }]);

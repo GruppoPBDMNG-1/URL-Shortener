@@ -2,6 +2,7 @@
 // .controller('AnalyticsController', ['$scope', '$http', '$window', function ($scope, $http, $window) {
 
 //sample data
+//richiamare la funzione getGraph
 $(function() {
 
     Morris.Area({

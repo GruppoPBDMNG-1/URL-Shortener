@@ -101,4 +101,13 @@ public class ShortURLData {
         return longUrl;
     }
 
+    public JSONArray getGraph(){
+        return createGraph();
+    }
+
+    public JSONArray createGraph(){
+        JSONArray graphJsonArray = new JSONArray();
+
+        return graphJsonArray;
+    }
 }

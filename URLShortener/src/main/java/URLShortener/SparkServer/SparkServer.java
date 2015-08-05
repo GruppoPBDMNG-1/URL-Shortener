@@ -15,6 +15,7 @@ public class SparkServer {
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
+    private static final String GRAPH = "graph";
     private static StringMessageManager message = StringMessageManager.getIstance();
 
 
@@ -77,6 +78,42 @@ public class SparkServer {
         return response;
     }
 
+    public static JSONObject getGraph(String shortUrl) {
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
+
+        ShortURLData url = ShortURLData
+            .getURLData(shortUrl);
+        if (url == null) {
+            data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
+        } else {
+            data.put(RESULT, OKAY);
+            data.put(GRAPH, url.getGraph());
+        }
+
+        response.put(JSON, data);
+
+        return response;
+    }
+
+    public static JSONObject getGraphPage(String shortUrl) {
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
+
+        ShortURLData url = ShortURLData
+            .getURLData(shortUrl);
+        if (url == null) {
+            data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
+        } else {
+            data.put(RESULT, OKAY);
+        }
+
+        response.put(JSON, data);
+
+        return response;
+    }
+
+
     public static void main(final String[] args) {
         setPort(8080);
         externalStaticFileLocation("public"); // Static files
@@ -100,6 +137,16 @@ public class SparkServer {
         get("/viewWindow", (request, response) -> {
             String shortUrl = request.queryParams(SHORTURL);
             return viewWindow(shortUrl);
+        });
+
+        get("/getGraph", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            return getGraph(shortUrl);
+        });
+
+        get("/getGraphPage", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            return getGraphPage(shortUrl);
         });
 
         before((request, response) -> {

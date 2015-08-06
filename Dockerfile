@@ -4,6 +4,9 @@ FROM ubuntu:latest
 # Expose ports.
 EXPOSE 8080
 
+#common files
+RUN apt-get install -y software-properties-common
+
 # Install Redis-Server
 RUN apt-get install -y redis-server
 

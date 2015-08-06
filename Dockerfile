@@ -30,8 +30,8 @@ RUN apt-get install -y maven
 # Prepare by downloading dependencies
 ADD URLShortener/pom.xml /code/pom.xml
 ADD URLShortener/src /code/src
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
+#RUN ["mvn", "dependency:resolve"]
+#RUN ["mvn", "verify"]
 
 WORKDIR /code
 
@@ -41,4 +41,4 @@ RUN echo 'mvn package' >> /start
 RUN echo 'java -jar target/urlshortener-0.0.1-SNAPSHOT.jar' >> /start
 RUN chmod 755 /start
 
-RUN mv /start /code
+#RUN mv /start /code

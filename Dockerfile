@@ -29,6 +29,7 @@ RUN apt-get install -y maven
 
 # Prepare by downloading dependencies
 ADD URLShortener/pom.xml /code/pom.xml
+ADD URLShortener/src /code/src
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 

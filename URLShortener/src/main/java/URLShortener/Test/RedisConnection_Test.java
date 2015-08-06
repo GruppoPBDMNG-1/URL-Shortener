@@ -1,13 +1,12 @@
-package URLShortener.DAO;
+package URLShortener.Test;
 
-import static org.junit.Assert.*;
+import URLShortener.DAO.RedisConnection;
 import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import URLShortener.Utility.UndesiderableWords;
+import static org.junit.Assert.*;
 
 public class RedisConnection_Test extends TestCase{
 
@@ -35,9 +34,9 @@ public class RedisConnection_Test extends TestCase{
 
 	@Test
 	public void testIsExists() {
-		
+
 		for (int i = 0; i < a.length; i++) {
-			boolean c = RedisConnection.isExists(a[i]);
+			boolean c = RedisConnection.getIstance().isExists(a[i]);
 
 			assertTrue(c == b[i]);
 		}

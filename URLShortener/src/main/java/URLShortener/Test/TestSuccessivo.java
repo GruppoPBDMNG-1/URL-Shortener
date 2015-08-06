@@ -1,4 +1,4 @@
-package URLShortener.Utility;
+package URLShortener.Test;
 
 public class TestSuccessivo {
 

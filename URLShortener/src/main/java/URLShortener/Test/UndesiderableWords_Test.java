@@ -1,6 +1,8 @@
-package URLShortener.Utility;
+package URLShortener.Test;
 
 import static org.junit.Assert.*;
+
+import URLShortener.Utility.UndesiderableWords;
 import junit.framework.TestCase;
 
 import org.junit.After;

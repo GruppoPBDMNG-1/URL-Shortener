@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 /*
- * URL Shortener
+ * URL Shortener algoritm
  */
 public class URLShortener {
     // storage for generated keys
@@ -66,8 +66,6 @@ public class URLShortener {
         // add http part
         return shortURL;
     }
-
-
 
     // Validate URL
     // not implemented, but should be implemented to check whether the given URL

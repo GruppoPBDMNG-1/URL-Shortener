@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Expose ports.
-EXPOSE 8080
+EXPOSE 8080 6379
 
 # Initial update
 RUN apt-get update
@@ -20,18 +20,28 @@ RUN apt-get update
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 RUN apt-get install oracle-java8-installer -y
 
+# Install curl utility just for testing
+RUN apt-get update && \
+	apt-get install -y curl
+	
+#Install nano - file editor
+RUN apt-get install nano
+
 # Install Redis-Server
 RUN apt-get install -y redis-server
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+#Install Maven
+RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-3.3.3 /usr/share/maven \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME /usr/share/maven
 
 # Prepare by downloading dependencies
 ADD URLShortener/pom.xml /code/pom.xml
 ADD URLShortener/src /code/src
-#RUN ["mvn", "dependency:resolve"]
-#RUN ["mvn", "verify"]
+RUN ["mvn", "dependency:resolve"]
+RUN ["mvn", "verify"]
 
 WORKDIR /code
 

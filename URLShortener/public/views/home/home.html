@@ -9,9 +9,8 @@
             <p align="left">
             <div class="form-group">
                 <input class="form-control" placeholder="Enter long URL" ng-model="longURL">
+            </div>
             <button type="button" ng-click = "genShort()" class="btn btn-default">Shorten URL</button>
-             </div>
-
             &nbsp; {{risp}} &nbsp; {{shortU}}<button type="button" ng-click ="goLong()" class="btn btn-link">{{link}}</button>
 
             </p>
@@ -48,7 +47,6 @@
             <ul>
                 <li ng-repeat="x in request">{{ x.key+ " " + x.value1 }}</li>
             </ul>
-
 
 
            <!-- <canvas id="myLineChart" width="900" height="450"></canvas>

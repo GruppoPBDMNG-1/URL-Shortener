@@ -27,8 +27,8 @@ RUN apt-get install -y redis-server
 RUN apt-get install -y maven
 
 # Prepare by downloading dependencies
-ADD -f URLShortener/pom.xml /code/pom.xml
-ADD -f URLShortener/src /code/src
+ADD URLShortener/pom.xml /code/pom.xml
+ADD URLShortener/src /code/src
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 

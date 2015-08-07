@@ -1,5 +1,5 @@
 # Pull base image.
-FROM ubuntu:latest
+FROM ubuntu:14.04
 
 # Expose ports.
 EXPOSE 8080 6379
@@ -29,9 +29,11 @@ RUN apt-get install -y maven
 WORKDIR /code
 
 # Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml
+ADD URLShortener/pom.xml /code/pom.xml
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
+
+ADD URLShortener/src /code/src
 
 #create the start server file and make it executable
 RUN echo '#!/bin/bash' >> /start

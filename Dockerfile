@@ -7,34 +7,52 @@ EXPOSE 8080
 #common files
 RUN apt-get install -y software-properties-common
 
-# Install Redis.
-RUN \
-  cd /tmp && \
-  wget http://download.redis.io/redis-stable.tar.gz && \
-  tar xvzf redis-stable.tar.gz && \
-  cd redis-stable && \
-  make && \
-  make install && \
-  cp -f src/redis-sentinel /usr/local/bin && \
-  mkdir -p /etc/redis && \
-  cp -f *.conf /etc/redis && \
-  rm -rf /tmp/redis-stable* && \
-  sed -i 's/^\(bind .*\)$/# \1/' /etc/redis/redis.conf && \
-  sed -i 's/^\(daemonize .*\)$/# \1/' /etc/redis/redis.conf && \
-  sed -i 's/^\(dir .*\)$/# \1\ndir \/data/' /etc/redis/redis.conf && \
-  sed -i 's/^\(logfile .*\)$/# \1/' /etc/redis/redis.conf
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r redis && useradd -r -g redis redis
 
-# Define mountable directories.
-VOLUME ["/data"]
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		ca-certificates \
+		curl \
+	&& rm -rf /var/lib/apt/lists/*
 
-# Define working directory.
+# grab gosu for easy step-down from root
+RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture)" \
+	&& curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture).asc" \
+	&& gpg --verify /usr/local/bin/gosu.asc \
+	&& rm /usr/local/bin/gosu.asc \
+	&& chmod +x /usr/local/bin/gosu
+
+ENV REDIS_VERSION 2.6.17
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-2.6.17.tar.gz
+ENV REDIS_DOWNLOAD_SHA1 b5423e1c423d502074cbd0b21bd4e820409d2003
+
+# "Redis Sentinel version 1, shipped with Redis 2.6, is deprecated and should not be used."
+# http://redis.io/topics/sentinel
+RUN buildDeps='gcc libc6-dev make' \
+	&& set -x \
+	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& mkdir -p /usr/src/redis \
+	&& curl -sSL "$REDIS_DOWNLOAD_URL" -o redis.tar.gz \
+	&& echo "$REDIS_DOWNLOAD_SHA1 *redis.tar.gz" | sha1sum -c - \
+	&& tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
+	&& rm redis.tar.gz \
+	&& make -C /usr/src/redis \
+	&& make -C /usr/src/redis install \
+	&& ln -s redis-server "$(dirname "$(which redis-server)")/redis-sentinel" \
+	&& rm -r /usr/src/redis \
+	&& apt-get purge -y --auto-remove $buildDeps
+
+RUN mkdir /data && chown redis:redis /data
+VOLUME /data
 WORKDIR /data
 
-# Define default command.
-CMD ["redis-server", "/etc/redis/redis.conf"]
+COPY docker-entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
-# Expose ports.
 EXPOSE 6379
+CMD [ "redis-server" ]
 
 #Get repositories for java8
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list

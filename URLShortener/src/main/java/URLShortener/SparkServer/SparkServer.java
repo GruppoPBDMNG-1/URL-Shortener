@@ -115,7 +115,7 @@ public class SparkServer {
 
 
     public static void main(final String[] args) {
-        setPort(8080);
+        port(8080);
         externalStaticFileLocation("public"); // Static files
 
         get("/", (request, response) -> {

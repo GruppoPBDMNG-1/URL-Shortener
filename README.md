@@ -4,7 +4,7 @@ Dockerfile source: https://github.com/katiascavo/Docker.git
 ##Installation guide
 Remember to set port 8080 into Virtual-Box
 
-1. Start boot2docker or your docker-machine
+1. Start boot2docker or docker-machine
 <pre>$ boot2docker start</pre>
 <pre>$ boot2docker ssh</pre>
 

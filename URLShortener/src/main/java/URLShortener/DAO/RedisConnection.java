@@ -5,6 +5,8 @@ import URLShortener.Utility.JsonValues;
 import URLShortener.Utility.ShortURLData;
 import redis.clients.jedis.Jedis;
 
+import java.util.Set;
+
 
 public class RedisConnection {
 
@@ -35,6 +37,7 @@ public class RedisConnection {
     public boolean isExists(String shortUrl){
         return (REDIS.getValue(shortUrl)==null);
     }
+
     public JsonValues getValue(String shortUrl){
         redis.connect();
         String response=redis.get(shortUrl);
@@ -58,4 +61,16 @@ public class RedisConnection {
         }
         return new ShortURLData(shortUrl, json);
     }
+    public Set<String> getAllShort(){
+        redis.connect();
+        Set<String> response;
+        response = redis.keys("*");
+        if(response == null){
+            return null;
+        }
+
+        redis.close();
+        return response;
+    }
 }
+

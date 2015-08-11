@@ -15,6 +15,7 @@ public class SparkServer {
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String LONGURL = "longUrl";
+    private  static final String STATS = "stats";
     private static final String GRAPH = "graph";
     private static StringMessageManager message = StringMessageManager.getIstance();
     static String sht;
@@ -78,19 +79,21 @@ public class SparkServer {
         response.put(JSON, data);
         return response;
     }
-
+//restituisce il metodo del grafico
     public static JSONObject getGraph() {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
-
-        ShortURLData url = ShortURLData
+              ShortURLData url = ShortURLData
             .getURLData(sht);
         if (url == null) {
             data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
         } else {
             data.put(RESULT, OKAY);
-            data.put(GRAPH, url.getGraph());
-        }
+
+             data.put(GRAPH, url.getGraph());
+        data.put(STATS, url.getStats());
+
+       }
 
         response.put(JSON, data);
 
@@ -119,6 +122,7 @@ public class SparkServer {
     public static void main(final String[] args) {
         port(8080);
         externalStaticFileLocation("public"); // Static files
+
 
         get("/", (request, response) -> {
             response.redirect("/index.html");

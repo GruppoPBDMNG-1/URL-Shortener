@@ -35,7 +35,7 @@
             </p>
             <p>
                 <button type="button" ng-click = "viewStats()" class="btn btn-default">Stats</button>
-                &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "viewGraph()" class="btn btn-default">View graph</button>
+                &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "viewPageGraph()" class="btn btn-default">View graph</button>
                 &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "goweb()" class="btn btn-default">Open web page</button>
                 &nbsp; {{name}}
             </p>
@@ -48,6 +48,20 @@
                 <li ng-repeat="x in request">{{ x.key+ " " + x.value1 }}</li>
             </ul>
 
+
+            <!--<div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart
+                    <div class="pull-right">
+                    </div>
+                </div> -->
+                <!-- /.panel-heading -->
+             <!--   <div class="panel-body">
+                    <div id="morris-area-chart"></div>
+
+                </div>
+
+            </div> -->
 
            <!-- <canvas id="myLineChart" width="900" height="450"></canvas>
             <br>

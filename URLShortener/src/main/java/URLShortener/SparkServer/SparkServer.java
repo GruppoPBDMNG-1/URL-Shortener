@@ -17,6 +17,7 @@ public class SparkServer {
     private  static final String LONGURL = "longUrl";
     private static final String GRAPH = "graph";
     private static StringMessageManager message = StringMessageManager.getIstance();
+    static String sht;
 
 
     public static JSONObject convertToShortUrl(String longUrl) {
@@ -78,12 +79,12 @@ public class SparkServer {
         return response;
     }
 
-    public static JSONObject getGraph(String shortUrl) {
+    public static JSONObject getGraph() {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
 
         ShortURLData url = ShortURLData
-            .getURLData(shortUrl);
+            .getURLData(sht);
         if (url == null) {
             data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
         } else {
@@ -96,9 +97,10 @@ public class SparkServer {
         return response;
     }
 
-    public static JSONObject getGraphPage(String shortUrl) {
+     public static JSONObject getGraphPage(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
+         sht = shortUrl;
 
         ShortURLData url = ShortURLData
             .getURLData(shortUrl);
@@ -125,7 +127,7 @@ public class SparkServer {
 
         get("/convertToShortUrl", (request, response) -> {
             String longUrl = request.queryParams(LONGURL);
-            return convertToShortUrl(longUrl).toString();
+            return convertToShortUrl(longUrl);
         });
 
         get("/saveShort", (request, response) -> {
@@ -140,8 +142,8 @@ public class SparkServer {
         });
 
         get("/getGraph", (request, response) -> {
-            String shortUrl = request.queryParams(SHORTURL);
-            return getGraph(shortUrl);
+            //String shortUrl = request.queryParams(SHORTURL);
+            return getGraph();
         });
 
         get("/getGraphPage", (request, response) -> {

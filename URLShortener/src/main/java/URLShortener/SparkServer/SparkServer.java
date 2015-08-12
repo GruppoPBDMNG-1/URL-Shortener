@@ -79,24 +79,22 @@ public class SparkServer {
         response.put(JSON, data);
         return response;
     }
-//restituisce il metodo del grafico
+
     public static JSONObject getGraph() {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
-              ShortURLData url = ShortURLData
+
+        ShortURLData url = ShortURLData
             .getURLData(sht);
         if (url == null) {
             data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
         } else {
             data.put(RESULT, OKAY);
-
              data.put(GRAPH, url.getGraph());
-        data.put(STATS, url.getStats());
 
        }
 
         response.put(JSON, data);
-
         return response;
     }
 
@@ -118,6 +116,25 @@ public class SparkServer {
         return response;
     }
 
+    public static JSONObject getStats(String shortUrl) {
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
+
+
+        ShortURLData url = ShortURLData
+            .getURLData(shortUrl);
+        if (url == null) {
+            data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
+        } else {
+            data.put(RESULT, OKAY);
+            data.put(STATS, url.getStats());
+            //data.put(REQUEST_FROM, url.getRequestFrom());
+        }
+
+        response.put(JSON, data);
+
+        return response;
+    }
 
     public static void main(final String[] args) {
         port(8080);
@@ -146,13 +163,17 @@ public class SparkServer {
         });
 
         get("/getGraph", (request, response) -> {
-            //String shortUrl = request.queryParams(SHORTURL);
             return getGraph();
         });
 
         get("/getGraphPage", (request, response) -> {
             String shortUrl = request.queryParams(SHORTURL);
             return getGraphPage(shortUrl);
+        });
+
+        get("/getStats", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            return getStats(shortUrl);
         });
 
         before((request, response) -> {

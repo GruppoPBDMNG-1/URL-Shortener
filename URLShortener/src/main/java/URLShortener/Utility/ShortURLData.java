@@ -19,6 +19,7 @@ public class ShortURLData {
     private static final String VALUE = "value";
     private static final String CLICKS ="clicks";
     private static final String DATE = "data";
+    private static final String MONTH = "currentmonth";
     private static final String NUMBER_OF_CLICK = "numeroclick";
     private static final int FIRST_TEN = 10;
     private GregorianCalendar gc = new GregorianCalendar();
@@ -223,6 +224,7 @@ public class ShortURLData {
 
     public JSONArray createGraph(){
         JSONArray graphJsonArray = new JSONArray();
+        //int month = gc.get(Calendar.MONTH)+1; //inserire il mese per il grafico
         int data = 0;
         int countClickInDay = 0;
         int dayMaximum= gc.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -250,6 +252,7 @@ public class ShortURLData {
 
         JSONObject click1=new JSONObject();
         click1.put(DATE,1 );
+        //click1.put(MONTH, month); //mese per grafico
         click1.put(NUMBER_OF_CLICK,click[1] );
         graphJsonArray.put(click1);
 

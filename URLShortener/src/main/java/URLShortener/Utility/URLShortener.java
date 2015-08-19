@@ -8,16 +8,16 @@ import java.util.Random;
  */
 public class URLShortener {
     // storage for generated keys
-    private HashMap<String, String> keyMap; // key-url map
-    private HashMap<String, String> valueMap;// url-key map to quickly check
+    private static HashMap<String, String> keyMap; // key-url map
+    private static HashMap<String, String> valueMap;// url-key map to quickly check
     // whether an url is
     // already entered in our system
-    private String domain; // Use this attribute to generate urls for a custom
+    private static String domain; // Use this attribute to generate urls for a custom
     // domain name defaults to http://fkt.in
-    private char myChars[]; // This array is used for character to number
+    private static char[] myChars; // This array is used for character to number
     // mapping
-    private Random myRand; // Random object used to generate random integers
-    private int keyLength; // the key length in URL defaults to 8
+    private static Random myRand; // Random object used to generate random integers
+    private static int keyLength; // the key length in URL defaults to 8
 
     // Default Constructor
     public URLShortener() {
@@ -53,7 +53,7 @@ public class URLShortener {
 
     // shortenURL
     // the public method which can be called to shorten a given URL
-    public String shortenURL(String longURL) {
+    public static String shortenURL(String longURL) {
         String shortURL = "";
         if (validateURL(longURL)) {
             longURL = sanitizeURL(longURL);
@@ -70,7 +70,7 @@ public class URLShortener {
     // Validate URL
     // not implemented, but should be implemented to check whether the given URL
     // is valid or not
-    public boolean validateURL(String url) {
+    public static boolean validateURL(String url) {
         return true;
     }
 
@@ -80,7 +80,7 @@ public class URLShortener {
     // http://www.google.com/
     // all the above URL should point to same shortened URL
     // There could be several other cases like these.
-    public String sanitizeURL(String url) {
+    public static String sanitizeURL(String url) {
         if (url.substring(0, 7).equals("http://"))
             url = url.substring(7);
 
@@ -95,7 +95,7 @@ public class URLShortener {
     /*
      * Get Key method
      */
-    private String getKey(String longURL) {
+    private static String getKey(String longURL) {
         String key;
         key = generateKey();
         keyMap.put(key, longURL);
@@ -104,7 +104,7 @@ public class URLShortener {
     }
 
     // generateKey
-    private String generateKey() {
+    private static String generateKey() {
         String key = "";
         boolean flag = true;
         while (flag) {

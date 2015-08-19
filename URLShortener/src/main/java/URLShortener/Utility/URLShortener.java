@@ -20,7 +20,7 @@ public class URLShortener {
     private int keyLength; // the key length in URL defaults to 8
 
     // Default Constructor
-    URLShortener() {
+    public URLShortener() {
         keyMap = new HashMap<String, String>();
         valueMap = new HashMap<String, String>();
         myRand = new Random();
@@ -70,7 +70,7 @@ public class URLShortener {
     // Validate URL
     // not implemented, but should be implemented to check whether the given URL
     // is valid or not
-    boolean validateURL(String url) {
+    public boolean validateURL(String url) {
         return true;
     }
 
@@ -80,7 +80,7 @@ public class URLShortener {
     // http://www.google.com/
     // all the above URL should point to same shortened URL
     // There could be several other cases like these.
-    String sanitizeURL(String url) {
+    public String sanitizeURL(String url) {
         if (url.substring(0, 7).equals("http://"))
             url = url.substring(7);
 

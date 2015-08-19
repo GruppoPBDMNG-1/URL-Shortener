@@ -16,7 +16,7 @@ public class URLShortenerTest extends TestCase {
 
     String[] prova1= {"www.aa.it"};
     String[] aspetto={"http://fkt.in/ciao"};
-    
+
     private String domain = "http://fkt.in";
     URLShortener prova;
 

@@ -11,7 +11,6 @@ public class URLShortenerTest extends TestCase {
 
     String[] cases= {"http://www.google.com", "https://www.google.com", "www.google.com/"};
     String[] result= {"www.google.com", "www.google.com", "www.google.com"};
-    String[] result1={};
     Boolean[] result2={true, true, true};
 
     String[] prova1= {"www.aa.it"};
@@ -23,9 +22,13 @@ public class URLShortenerTest extends TestCase {
     public URLShortenerTest() {
         prova = new URLShortener();
     }
+
     @Test
     public void testShortenURL() throws Exception {
-
+        for (int i = 0; i < prova1.length; i++) {
+            String c = prova.shortenURL(prova1[i]);
+            assertTrue(c!=aspetto[i]);
+        }
     }
 
     @Test

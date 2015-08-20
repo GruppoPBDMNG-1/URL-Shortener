@@ -19,7 +19,7 @@ public class ShortURLData {
     private static final String CLICKS ="clicks";
     private static final int FIRST_TEN = 10;
     private GregorianCalendar gc = new GregorianCalendar();
-    private String shortUrl;
+    private static String shortUrl;
     private String longUrl;
 
 
@@ -123,7 +123,7 @@ public class ShortURLData {
     /**
      * @return
      */
-    public String getShortUrl() {
+    public static String getShortUrl() {
         return shortUrl;
     }
 

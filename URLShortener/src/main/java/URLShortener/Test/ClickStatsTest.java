@@ -16,12 +16,18 @@ public class ClickStatsTest extends TestCase {
     ClickStats prova = new ClickStats(cases);
 
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testGetDate() throws Exception {
         String result = prova.getDate();
         assertTrue(result != null);
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testToJson() throws Exception {
         JSONObject result = prova.toJson();

@@ -3,6 +3,7 @@ package URLShortener.Test;
 import URLShortener.Utility.JsonValues;
 import URLShortener.Utility.ShortURLData;
 import URLShortener.Utility.URLShortener;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Vincenzo_Pc on 20/08/2015.
  */
-public class ShortURLDataTest {
+public class ShortURLDataTest extends TestCase {
 
     int i=0;
     int j=0;
@@ -19,6 +20,9 @@ public class ShortURLDataTest {
 
     ShortURLData test = new ShortURLData(casoPrimo[i],casoSecondo[j]);
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testSetJsonString() throws Exception {
         JsonValues result = test.setJsonString();
@@ -26,11 +30,17 @@ public class ShortURLDataTest {
 
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testAddNewClick() throws Exception {
 
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testSaveShortLongURL() throws Exception {
         for(i=0;i<casoPrimo.length;i++){

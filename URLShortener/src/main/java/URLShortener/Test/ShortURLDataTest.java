@@ -21,13 +21,8 @@ public class ShortURLDataTest {
 
     @Test
     public void testSetJsonString() throws Exception {
-        JsonValues result = test.setJsonString();
-        assertTrue(result != null);
-
-    }
-
-    @Test
-    public void testAddNewClick() throws Exception {
+        JsonValues result1 = test.setJsonString();
+        assertTrue(result1 != null);
 
     }
 

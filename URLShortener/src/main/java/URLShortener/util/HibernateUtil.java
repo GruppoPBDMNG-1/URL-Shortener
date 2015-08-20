@@ -10,13 +10,19 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ *
+ */
 public class HibernateUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HibernateUtil.class);
-    
+
     private static final SessionFactory SESSION_FACTORY = createSessionFactory();
     private static final ThreadLocal<Session> SESSIONS = new ThreadLocal<>();
-    
+
+    /**
+     * @return
+     */
     public static Session getSession() {
         Session session = SESSIONS.get();
         if (session == null) {
@@ -25,7 +31,10 @@ public class HibernateUtil {
         }
         return session;
     }
-    
+
+    /**
+     *
+     */
     public static void closeSession() {
         Session session = SESSIONS.get();
         if (session != null) {
@@ -33,7 +42,10 @@ public class HibernateUtil {
             SESSIONS.remove();
         }
     }
-    
+
+    /**
+     * @return
+     */
     private static SessionFactory createSessionFactory() {
         try {
             Configuration configuration = configuration();
@@ -44,11 +56,14 @@ public class HibernateUtil {
             throw ex;
         }
     }
-    
+
+    /**
+     * @return
+     */
     private static Configuration configuration() {
         Configuration configuration = new Configuration();
         configuration.configure("/hibernate-local.cfg.xml");
         return configuration;
     }
-    
+
 }

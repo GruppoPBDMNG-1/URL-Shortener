@@ -8,6 +8,9 @@ import URLShortener.util.*;
 import static spark.Spark.get;
 import org.json.JSONObject;
 
+/**
+ *
+ */
 public class SparkServer {
 
     private static final String JSON = "responseData";
@@ -19,6 +22,10 @@ public class SparkServer {
     private static StringMessageManager message = StringMessageManager.getIstance();
 
 
+    /**
+     * @param longUrl
+     * @return
+     */
     public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -39,6 +46,11 @@ public class SparkServer {
         return response;
     }
 
+    /**
+     * @param shortUrl
+     * @param longUrl
+     * @return
+     */
     public static JSONObject saveShort(String shortUrl, String longUrl){
 
         JSONObject data = new JSONObject();
@@ -60,6 +72,10 @@ public class SparkServer {
         return response;
     }
 
+    /**
+     * @param shortUrl
+     * @return
+     */
     public static JSONObject viewWindow(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -78,6 +94,10 @@ public class SparkServer {
         return response;
     }
 
+    /**
+     * @param shortUrl
+     * @return
+     */
     public static JSONObject getGraph(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -96,6 +116,10 @@ public class SparkServer {
         return response;
     }
 
+    /**
+     * @param shortUrl
+     * @return
+     */
     public static JSONObject getGraphPage(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -114,6 +138,9 @@ public class SparkServer {
     }
 
 
+    /**
+     * @param args
+     */
     public static void main(final String[] args) {
         port(8080);
         externalStaticFileLocation("public"); // Static files

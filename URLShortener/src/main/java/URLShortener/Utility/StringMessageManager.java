@@ -16,10 +16,17 @@ public class StringMessageManager {
 
     public static final StringMessageManager message = new StringMessageManager();
 
+    /**
+     * @return
+     */
     public static StringMessageManager getIstance(){
         return message;
     }
 
+    /**
+     * @param key
+     * @return
+     */
     public String getMessage (String key) {
         Properties props = new Properties();
         InputStream stream;

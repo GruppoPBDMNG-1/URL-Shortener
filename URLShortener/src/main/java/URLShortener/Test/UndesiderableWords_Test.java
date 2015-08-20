@@ -10,9 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ *
+ */
 public class UndesiderableWords_Test extends TestCase {
 
-	public String[] cases = { "topa", "ciao", "gay", "casa", "mare", "cacca",
+	public String[] casi = { "topa", "ciao", "gay", "casa", "mare", "cacca",
 			"pirla", "vaffanculo", "cazzo", "culo", "bastardo", "coglione",
 			"Cacchio", "Vaiacagare", "figa", "troia", "minchia", "merda",
 			"pirla", "stronzo", "fica", "fregna", "mignotta", "puttana",
@@ -29,7 +32,7 @@ public class UndesiderableWords_Test extends TestCase {
 
 	};
 
-	public boolean[] result = { false, true, false, true, true, false, false,
+	public boolean[] aspetto = { false, true, false, true, true, false, false,
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false,
@@ -49,12 +52,15 @@ public class UndesiderableWords_Test extends TestCase {
 	public void tearDown() throws Exception {
 	}
 
+    /**
+     *
+     */
 	@Test
 	public void testCheckUndesiderableWords() {
-		for (int i = 0; i < cases.length; i++) {
-			boolean c = UndesiderableWords.checkUndesiderableWords(cases[i]);
+		for (int i = 0; i < casi.length; i++) {
+			boolean c = UndesiderableWords.checkUndesiderableWords(casi[i]);
 
-			assertTrue(c == result[i]);
+			assertTrue(c == aspetto[i]);
 		}
 
 	}

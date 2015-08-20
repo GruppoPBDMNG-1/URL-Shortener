@@ -10,6 +10,9 @@ import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.google.common.base.Throwables;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class JacksonUtil {
 
     public static ObjectMapper newObjectMapper() {
@@ -21,6 +24,12 @@ public class JacksonUtil {
         return mapper;
     }
 
+    /**
+     * @param src
+     * @param valueType
+     * @param <T>
+     * @return
+     */
     public static <T> T readValue(String src, Class<T> valueType) {
         try {
             return newObjectMapper().readValue(src, valueType);

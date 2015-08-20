@@ -3,6 +3,9 @@ package URLShortener.Utility;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ *
+ */
 /*
  * URL Shortener algoritm
  */
@@ -19,6 +22,10 @@ public class URLShortener {
     private Random myRand; // Random object used to generate random integers
     private int keyLength; // the key length in URL defaults to 8
 
+
+    /**
+     *
+     */
     // Default Constructor
     public URLShortener() {
         keyMap = new HashMap<String, String>();
@@ -40,6 +47,10 @@ public class URLShortener {
         domain = "http://fkt.in";
     }
 
+    /**
+     * @param lenght
+     * @param newDomain
+     */
     // Constructor which enables you to define tiny URL key length and base URL
     // name
     public URLShortener(int lenght, String newDomain) {
@@ -51,6 +62,10 @@ public class URLShortener {
         }
     }
 
+    /**
+     * @param longURL
+     * @return
+     */
     // shortenURL
     // the public method which can be called to shorten a given URL
     public String shortenURL(String longURL) {
@@ -67,6 +82,10 @@ public class URLShortener {
         return shortURL;
     }
 
+    /**
+     * @param url
+     * @return
+     */
     // Validate URL
     // not implemented, but should be implemented to check whether the given URL
     // is valid or not
@@ -74,6 +93,10 @@ public class URLShortener {
         return true;
     }
 
+    /**
+     * @param url
+     * @return
+     */
     // sanitizeURL
     // This method should take care various issues with a valid url
     // e.g. www.google.com,www.google.com/, http://www.google.com,
@@ -92,6 +115,10 @@ public class URLShortener {
         return url;
     }
 
+    /**
+     * @param longURL
+     * @return
+     */
     /*
      * Get Key method
      */
@@ -103,6 +130,9 @@ public class URLShortener {
         return key;
     }
 
+    /**
+     * @return
+     */
     // generateKey
     private String generateKey() {
         String key = "";

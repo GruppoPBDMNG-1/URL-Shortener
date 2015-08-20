@@ -11,17 +11,20 @@ import static org.junit.Assert.*;
  */
 public class RedisConnectionTest extends TestCase{
 
-    String [] a  ={"www.google.it","www.amazon.com","www.vincenzoMOlfettaInf.it"};
-    boolean [] b  ={false,true,true};
+    String [] casi  ={"www.google.it","www.amazon.com","www.vincenzoMOlfettaInf.it"};
+    boolean [] aspetto  ={false,true,true};
 
 
+    /**
+     * @throws Exception
+     */
    @Test
     public void testIsExists() throws Exception {
 
-       for (int i = 0; i < a.length; i++) {
-           boolean c = RedisConnection.getIstance().isExists(a[i]);
+       for (int i = 0; i < casi.length; i++) {
+           boolean c = RedisConnection.getIstance().isExists(casi[i]);
 
-           assertTrue(c == b[i]);
+           assertTrue(c == aspetto[i]);
        }
 
     }

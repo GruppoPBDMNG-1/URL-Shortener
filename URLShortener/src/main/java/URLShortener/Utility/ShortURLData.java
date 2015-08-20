@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ */
 public class ShortURLData {
 
     private static final String SHORTURL="shortUrl";
@@ -20,10 +23,14 @@ public class ShortURLData {
     private String longUrl;
 
 
+
     private static RedisConnection RedisConnDAO=RedisConnection.getIstance();
 
     private ArrayList<ClickStats> ClicksNumber;
 
+    /**
+     * @return
+     */
     public JsonValues setJsonString(){
         JSONObject UrlAssociationJson=new JSONObject();
         JSONArray clickJsonArray=new JSONArray();
@@ -39,6 +46,10 @@ public class ShortURLData {
     }
 
 
+    /**
+     * @param shortUrl
+     * @param longUrl
+     */
     public ShortURLData(String shortUrl,String longUrl){
         ClicksNumber = new ArrayList<ClickStats>();
         longUrl=longUrl.replace("http://", "");
@@ -48,6 +59,10 @@ public class ShortURLData {
 
     }
 
+    /**
+     * @param shortUrl
+     * @param json
+     */
     public ShortURLData(String shortUrl, JsonValues json){
         ClicksNumber = new ArrayList<ClickStats>();
         JSONObject values = new JSONObject(json.getJsonString());
@@ -62,6 +77,9 @@ public class ShortURLData {
 
     }
 
+    /**
+     *
+     */
     public void addNewClick(){
 
 
@@ -84,15 +102,27 @@ public class ShortURLData {
         RedisConnDAO.update(this);
     }
 
+    /**
+     * @param shortUrl
+     * @param longUrl
+     * @return
+     */
     public static boolean saveShortLongURL (String shortUrl,String longUrl){
         ShortURLData sud=new ShortURLData(shortUrl,longUrl);
         return RedisConnDAO.setKeyData(sud);
     }
 
+    /**
+     * @param shortUrl
+     * @return
+     */
     public static ShortURLData getURLData(String shortUrl) {
         return RedisConnDAO.getKeyData(shortUrl);
     }
 
+    /**
+     * @return
+     */
     public String getShortUrl() {
         return shortUrl;
     }
@@ -101,10 +131,16 @@ public class ShortURLData {
         return longUrl;
     }
 
+    /**
+     * @return
+     */
     public JSONArray getGraph(){
         return createGraph();
     }
 
+    /**
+     * @return
+     */
     public JSONArray createGraph(){
         JSONArray graphJsonArray = new JSONArray();
 

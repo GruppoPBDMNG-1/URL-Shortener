@@ -3,8 +3,15 @@ package URLShortener.Utility;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ *
+ */
 public class UndesiderableWords {
 
+    /**
+     * @param s
+     * @return
+     */
     public static boolean checkUndesiderableWords(String s) {
         boolean check = true;
         FileReader fileReader = null;

@@ -5,45 +5,57 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
- * Created by Fabiola on 18/08/2015.
+ *
  */
 public class URLShortenerTest extends TestCase {
 
-    String[] cases= {"http://www.google.com", "https://www.google.com", "www.google.com/"};
-    String[] result= {"www.google.com", "www.google.com", "www.google.com"};
-    Boolean[] result2={true, true, true};
+    String[] casi= {"http://www.google.com", "https://www.google.com", "www.google.com/"};
+    String[] aspetto= {"www.google.com", "www.google.com", "www.google.com"};
+    Boolean[] aspetto1={true, true, true};
 
-    String[] prova1= {"www.aa.it"};
-    String[] aspetto={"http://fkt.in/ciao"};
+    String[] casi1= {"www.aa.it"};
+    String[] aspetto2={"http://fkt.in/ciao"};
 
     private String domain = "http://fkt.in";
     URLShortener prova;
 
+    /**
+     *
+     */
     public URLShortenerTest() {
         prova = new URLShortener();
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testShortenURL() throws Exception {
-        for (int i = 0; i < prova1.length; i++) {
-            String c = prova.shortenURL(prova1[i]);
-            assertTrue(c!=aspetto[i]);
+        for (int i = 0; i < casi1.length; i++) {
+            String c = prova.shortenURL(casi1[i]);
+            assertTrue(c!=aspetto2[i]);
         }
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testValidateURL() throws Exception {
-        for (int i = 0; i<cases.length; i++){
-            Boolean d = prova.validateURL(cases[i]);
-            assertTrue(d == result2[i]);
+        for (int i = 0; i<casi.length; i++){
+            Boolean d = prova.validateURL(casi[i]);
+            assertTrue(d == aspetto1[i]);
         }
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testSanitizeURL() throws Exception {
-        for (int i = 0; i < cases.length; i++) {
-            String c = prova.sanitizeURL(cases[i]);
-            assertEquals(c, result[i]);
+        for (int i = 0; i < casi.length; i++) {
+            String c = prova.sanitizeURL(casi[i]);
+            assertEquals(c, aspetto[i]);
         }
     }
 }

@@ -14,22 +14,11 @@ public class ShortURLDataTest {
 
     int i=0;
     int j=0;
-    String[] cases = {"broJG","SQhAJ","GHoHp","q8xTB","vlynY","IRosu","NuUr8","cxmDH"};
-    String[] cases1 = {"www.google.it","www.amazon.com","www.basididatiavanzati.de","https://www.focus.it","www.ciaosic.sl","www.happycasa.org","www.ultimoesameesto.ciao","www.tempesta.civediamo"};
+    String[] casoPrimo = {"broJG","SQhAJ","GHoHp","q8xTB","vlynY","IRosu","NuUr8","cxmDH"};
+    String[] casoSecondo = {"www.google.it","www.amazon.com","www.basididatiavanzati.de","https://www.focus.it","www.ciaosic.sl","www.happycasa.org","www.ultimoesameesto.ciao","www.tempesta.civediamo"};
 
-<<<<<<< HEAD
+    ShortURLData test = new ShortURLData(casoPrimo[i],casoSecondo[j]);
 
-=======
-<<<<<<< HEAD
-    String cases = "broJG";
-    String cases1 = "www.google.it";
-    ShortURLData test = new ShortURLData(cases,cases1);
-
-
-=======
->>>>>>> origin/master
-    ShortURLData test = new ShortURLData(cases[i],cases1[j]);
->>>>>>> origin/master
     @Test
     public void testSetJsonString() throws Exception {
         JsonValues result = test.setJsonString();
@@ -44,10 +33,10 @@ public class ShortURLDataTest {
 
     @Test
     public void testSaveShortLongURL() throws Exception {
-        for(i=0;i<cases.length;i++){
-            for(j=0;j<cases1.length;j++){
+        for(i=0;i<casoPrimo.length;i++){
+            for(j=0;j<casoSecondo.length;j++){
 
-                boolean result = test.saveShortLongURL(cases[i], cases1[j]);
+                boolean result = test.saveShortLongURL(casoPrimo[i], casoSecondo[j]);
                 assertTrue(result==false);
             }
         }

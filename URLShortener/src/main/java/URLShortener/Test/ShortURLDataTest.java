@@ -25,7 +25,7 @@ public class ShortURLDataTest extends TestCase {
      */
     @Test
     public void testSetJsonString() throws Exception {
-<<<<<<< HEAD
+
         JsonValues result = test.setJsonString();
         assertTrue(result != null);
 
@@ -36,10 +36,10 @@ public class ShortURLDataTest extends TestCase {
      */
     @Test
     public void testAddNewClick() throws Exception {
-=======
+
         JsonValues result1 = test.setJsonString();
         assertTrue(result1 != null);
->>>>>>> origin/master
+
 
     }
 

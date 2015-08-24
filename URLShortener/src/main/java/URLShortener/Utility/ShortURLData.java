@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  *
@@ -16,6 +18,8 @@ public class ShortURLData {
 
     private static final String SHORTURL="shortUrl";
     private static final String LONGURL="longUrl";
+    private static final String NAME = "name";
+    private static final String VALUE = "value";
     private static final String DATE = "data";
     private static final String MONTH = "currentmonth";
     private static final String NUMBER_OF_CLICK = "numeroclick";
@@ -28,12 +32,10 @@ public class ShortURLData {
 
 
     private static RedisConnection RedisConnDAO=RedisConnection.getIstance();
+    private static StringMessageManager message = StringMessageManager.getIstance();
 
     private ArrayList<ClickStats> ClicksNumber;
 
-    /**
-     * @return
-     */
     public JsonValues setJsonString(){
         JSONObject UrlAssociationJson=new JSONObject();
         JSONArray clickJsonArray=new JSONArray();
@@ -48,11 +50,6 @@ public class ShortURLData {
         return new JsonValues(UrlAssociationJson.toString());
     }
 
-
-    /**
-     * @param shortUrl
-     * @param longUrl
-     */
     public ShortURLData(String shortUrl,String longUrl){
         ClicksNumber = new ArrayList<ClickStats>();
         longUrl=longUrl.replace("http://", "");
@@ -62,10 +59,6 @@ public class ShortURLData {
 
     }
 
-    /**
-     * @param shortUrl
-     * @param json
-     */
     public ShortURLData(String shortUrl, JsonValues json){
         ClicksNumber = new ArrayList<ClickStats>();
         JSONObject values = new JSONObject(json.getJsonString());
@@ -80,9 +73,7 @@ public class ShortURLData {
 
     }
 
-    /**
-     *
-     */
+
     public void addNewClick(){
 
 
@@ -105,29 +96,129 @@ public class ShortURLData {
         RedisConnDAO.update(this);
     }
 
-    /**
-     * @param shortUrl
-     * @param longUrl
-     * @return
-     */
+
     public static boolean saveShortLongURL (String shortUrl,String longUrl){
         ShortURLData sud=new ShortURLData(shortUrl,longUrl);
         return RedisConnDAO.setKeyData(sud);
     }
 
-    /**
-     * @param shortUrl
-     * @return
-     */
+
     public static ShortURLData getURLData(String shortUrl) {
         return RedisConnDAO.getKeyData(shortUrl);
     }
 
-    /**
-     * @return
-     */
+
     public static String getShortUrl() {
         return shortUrl;
+    }
+
+    public JSONArray getStats() {
+        return createStats();
+    }
+
+    public  JSONArray createStats() {
+
+
+        String [] maxLongUrl = longMaxClick();
+
+        int countClickOfDay=0;
+        int countClicksOfMonth = 0;
+        int countClicksOfYear = 0;
+
+
+        int day = gc.get(Calendar.DAY_OF_MONTH);
+        int month = gc.get(Calendar.MONTH)+1;
+        int year = gc.get(Calendar.YEAR);
+
+        //conteggio dei clicks giornalieri, mensili e annuali
+        for(ClickStats s : ClicksNumber){
+            if(day== Integer.parseInt(s.getDate().substring(0,2))){
+                if(month == Integer.parseInt(s.getDate().substring(3,4))){
+                    if(year == Integer.parseInt(s.getDate().substring(5, s.getDate().length()))){
+                        countClickOfDay++;
+                        countClicksOfMonth++;
+                        countClicksOfYear++;
+                    }
+                }
+            }else if(month == Integer.parseInt(s.getDate().substring(3,4))){
+                if(year == Integer.parseInt(s.getDate().substring(5, s.getDate().length()))){
+                    countClicksOfMonth++;
+                    countClicksOfYear++;
+                }
+            }else if(year == Integer.parseInt(s.getDate().substring(5, s.getDate().length()))){
+                countClicksOfYear++;
+            }
+        }
+
+
+        JSONArray statsJsonArray=new JSONArray();
+
+
+        JSONObject numClickJson=new JSONObject();
+        numClickJson.put(NAME, message.getMessage("TOTAL_CLICKS"));
+        numClickJson.put(VALUE, ClicksNumber.size());
+        statsJsonArray.put(numClickJson);
+
+        JSONObject todayClickJson=new JSONObject();
+        todayClickJson.put(NAME, message.getMessage("CLICKS_OF_DAY"));
+        todayClickJson.put(VALUE, countClickOfDay);
+        statsJsonArray.put(todayClickJson);
+
+        JSONObject monthClickJson=new JSONObject();
+        monthClickJson.put(NAME, message.getMessage("CLICKS_OF_MONTH"));
+        monthClickJson.put(VALUE, countClicksOfMonth);
+        statsJsonArray.put(monthClickJson);
+
+        JSONObject yearClickJson=new JSONObject();
+        yearClickJson.put(NAME, message.getMessage("CLICKS_OF_YEAR"));
+        yearClickJson.put(VALUE, countClicksOfYear);
+        statsJsonArray.put(yearClickJson);
+
+        JSONObject longClick = new JSONObject();
+        longClick.put(NAME, message.getMessage("MOST_CLICKED"));
+        longClick.put(VALUE, maxLongUrl[0]);
+        statsJsonArray.put(longClick);
+
+        JSONObject maxClick = new JSONObject();
+        maxClick.put(NAME, "Total clicks for "+ maxLongUrl[0]+ ":");
+        maxClick.put(VALUE, maxLongUrl[1]);
+        statsJsonArray.put(maxClick);
+
+
+        return statsJsonArray;
+    }
+
+    public static String [] longMaxClick(){
+
+        Set<String> shortUrls =RedisConnDAO.getAllShort();
+        String [] maxVal = new String [2];
+
+        ArrayList<String> longString = new ArrayList<String>();
+        ArrayList<Integer> intCount = new ArrayList<Integer>();
+        Iterator<String> iter = shortUrls.iterator();
+
+        while(iter.hasNext()){
+            String s = iter.next().toString();
+            ShortURLData association = RedisConnDAO.getKeyData(s);
+            int countClick = association.ClicksNumber.size();
+            String longUrlAssociate = association.getLongUrl();
+            longString.add(longUrlAssociate);
+            intCount.add(countClick);
+
+        }
+        String longUrl = null;
+        int maxValue= intCount.get(0);
+        //calcola il longUrl con il massimo di click
+        for(int i =0 ; i<intCount.size(); i++){
+            if(intCount.get(i)> maxValue){
+                maxValue = intCount.get(i);
+                longUrl = longString.get(i);
+            }
+        }
+        String max = String.valueOf(maxValue);
+        maxVal[0] = longUrl;
+        maxVal[1] = max;
+        return maxVal;
     }
 
     public String getLongUrl(){

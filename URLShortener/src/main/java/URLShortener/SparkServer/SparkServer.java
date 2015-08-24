@@ -8,25 +8,19 @@ import URLShortener.util.*;
 import static spark.Spark.get;
 import org.json.JSONObject;
 
-/**
- *
- */
 public class SparkServer {
 
     private static final String JSON = "responseData";
     private  static final String RESULT = "result";
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
+    private  static final String STATS = "stats";
     private  static final String LONGURL = "longUrl";
     private static final String GRAPH = "graph";
     private static StringMessageManager message = StringMessageManager.getIstance();
     static String sht;
 
 
-    /**
-     * @param longUrl
-     * @return
-     */
     public static JSONObject convertToShortUrl(String longUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -47,11 +41,6 @@ public class SparkServer {
         return response;
     }
 
-    /**
-     * @param shortUrl
-     * @param longUrl
-     * @return
-     */
     public static JSONObject saveShort(String shortUrl, String longUrl){
 
         JSONObject data = new JSONObject();
@@ -73,10 +62,6 @@ public class SparkServer {
         return response;
     }
 
-    /**
-     * @param shortUrl
-     * @return
-     */
     public static JSONObject viewWindow(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -95,9 +80,6 @@ public class SparkServer {
         return response;
     }
 
-    /**
-     * @return
-     */
     public static JSONObject getGraph() {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -116,10 +98,6 @@ public class SparkServer {
         return response;
     }
 
-    /**
-     * @param shortUrl
-     * @return
-     */
     public static JSONObject getGraphPage(String shortUrl) {
         JSONObject data = new JSONObject();
         JSONObject response = new JSONObject();
@@ -138,13 +116,30 @@ public class SparkServer {
         return response;
     }
 
+    public static JSONObject getStats(String shortUrl) {
+        JSONObject data = new JSONObject();
+        JSONObject response = new JSONObject();
 
-    /**
-     * @param args
-     */
+
+        ShortURLData url = ShortURLData
+            .getURLData(shortUrl);
+        if (url == null) {
+            data.put(RESULT, message.getMessage("KEY_NOT_FOUND"));
+        } else {
+            data.put(RESULT, OKAY);
+            data.put(STATS, url.getStats());
+            //data.put(REQUEST_FROM, url.getRequestFrom());
+        }
+
+        response.put(JSON, data);
+
+        return response;
+    }
+
     public static void main(final String[] args) {
         port(8080);
         externalStaticFileLocation("public"); // Static files
+
 
         get("/", (request, response) -> {
             response.redirect("/index.html");
@@ -174,6 +169,11 @@ public class SparkServer {
         get("/getGraphPage", (request, response) -> {
             String shortUrl = request.queryParams(SHORTURL);
             return getGraphPage(shortUrl);
+        });
+
+        get("/getStats", (request, response) -> {
+            String shortUrl = request.queryParams(SHORTURL);
+            return getStats(shortUrl);
         });
 
         before((request, response) -> {

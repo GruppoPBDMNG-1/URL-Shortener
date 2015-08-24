@@ -15,6 +15,7 @@ public class SparkServer {
     private  static final String OKAY = "okay";
     private static final String SHORTURL = "shortUrl";
     private  static final String STATS = "stats";
+    private static final String REQUEST_FROM = "ipAddress";
     private  static final String LONGURL = "longUrl";
     private static final String GRAPH = "graph";
     private static StringMessageManager message = StringMessageManager.getIstance();
@@ -128,7 +129,7 @@ public class SparkServer {
         } else {
             data.put(RESULT, OKAY);
             data.put(STATS, url.getStats());
-            //data.put(REQUEST_FROM, url.getRequestFrom());
+            data.put(REQUEST_FROM, url.getRequestFrom());
         }
 
         response.put(JSON, data);

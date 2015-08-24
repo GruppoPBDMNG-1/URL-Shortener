@@ -1,15 +1,14 @@
 package URLShortener.Utility;
 
-import URLShortener.Stats.ClickStats;
-
 import URLShortener.DAO.RedisConnection;
+import URLShortener.Stats.ClickStats;
+import URLShortener.Stats.GeoLocation;
+
+import java.text.DateFormatSymbols;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  *
@@ -22,13 +21,16 @@ public class ShortURLData {
     private static final String VALUE = "value";
     private static final String DATE = "data";
     private static final String MONTH = "currentmonth";
+    private static final String KEY = "key";
+    private static final String VALUE1 = "value1";
     private static final String NUMBER_OF_CLICK = "numeroclick";
     private static final String CLICKS ="clicks";
     private static final int FIRST_TEN = 10;
     private GregorianCalendar gc = new GregorianCalendar();
+    private GeoLocation geoLoc = GeoLocation.getIstance();
     private static String shortUrl;
     private String longUrl;
-
+    private static DateFormatSymbols formatOfMonth = new DateFormatSymbols(Locale.ENGLISH);
 
 
     private static RedisConnection RedisConnDAO=RedisConnection.getIstance();
@@ -232,9 +234,46 @@ public class ShortURLData {
         return createGraph();
     }
 
-    /**
-     * @return
-     */
+    public JSONArray getRequestFrom(){
+        return request();
+    }
+
+    public JSONArray request(){
+
+        int day = gc.get(Calendar.DAY_OF_MONTH);
+        int month = gc.get(Calendar.MONTH)+1;
+        int year = gc.get(Calendar.YEAR);
+
+        JSONArray requestJsonArray = new JSONArray();
+        String[] monthNames = formatOfMonth.getMonths();
+
+        JSONObject addJson=new JSONObject();
+        addJson.put(KEY, message.getMessage("DAY"));
+        addJson.put(VALUE1, monthNames[month-1]+" "+day+", "+year);
+        requestJsonArray.put(addJson);
+
+        JSONObject countryJson = new JSONObject();
+        countryJson.put(KEY, message.getMessage("COUNTRY"));
+        try{
+            countryJson.put(VALUE1, geoLoc.getLocationCountry());
+        }catch(Exception e){
+            e.getMessage();
+        }
+        requestJsonArray.put(countryJson);
+
+        JSONObject cityJson = new JSONObject();
+        cityJson.put(KEY, message.getMessage("CITY"));
+        try{
+            cityJson.put(VALUE1, geoLoc.getLocationCity());
+        }catch(Exception e)
+        {
+            e.getMessage();
+        }
+        requestJsonArray.put(cityJson);
+
+        return requestJsonArray;
+    }
+
     public JSONArray createGraph(){
         JSONArray graphJsonArray = new JSONArray();
         //int month = gc.get(Calendar.MONTH)+1; //inserire il mese per il grafico

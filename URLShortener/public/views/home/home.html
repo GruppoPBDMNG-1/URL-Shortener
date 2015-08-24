@@ -35,7 +35,7 @@
             </p>
             <p>
                 <button type="button" ng-click = "viewStats()" class="btn btn-default">Stats</button>
-                &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "viewGraph()" class="btn btn-default">View graph</button>
+                &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "viewPageGraph()" class="btn btn-default">View graph</button>
                 &nbsp;&nbsp;&nbsp; <button type="button" ng-click = "goweb()" class="btn btn-default">Open web page</button>
                 &nbsp; {{name}}
             </p>
@@ -47,11 +47,6 @@
             <ul>
                 <li ng-repeat="x in request">{{ x.key+ " " + x.value1 }}</li>
             </ul>
-
-
-           <!-- <canvas id="myLineChart" width="900" height="450"></canvas>
-            <br>
-            <div id="placeholder"></div> -->
 
         </div>
     </div>

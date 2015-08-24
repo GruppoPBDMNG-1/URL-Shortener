@@ -177,10 +177,11 @@
                                                                                                                                             + $scope.shortUrl;
                                                                                                                                 }
 
-    $scope.viewGraph = function() {
+    $scope.viewPageGraph = function() {
      if($scope.shortUrl==null){
                                             $scope.error3="Empty short URL";
                                         }else{
+
                                         $scope.resetAlarm();
                                             $http
                                                 .get($scope.vGraph())
@@ -189,9 +190,7 @@
                                                             $scope.nom = risposta.responseData;
                                                             if ($scope.nom.result == "okay") {
 
-
-                                                                                                $window
-                                                                                                        .open("/#/analytics");
+                                                            $window.open("/#/analytics");
 
                                                                 }else{
                                                                 $scope.error3 = $scope.nom.result;
@@ -201,5 +200,33 @@
                                                                 }
                                                                 }
 
+$scope.vStats = function() {
+                                            return "http://localhost:8080/getStats?shortUrl="
+                                                    + $scope.shortUrl;
+                                        }
+
+                                        $scope.viewStats = function() {
+                                               if($scope.shortUrl==null){
+                                                   $scope.ristat="Empty short URL";
+                                               }else{
+                                            $scope.nome = "";
+                                            $scope.request = "";
+                                            $scope.graph = "";
+                                            $scope.resetAlarm();
+                                                   $http
+                                                    .get($scope.vStats())
+                                                    .success(
+                                                            function(risposta) {
+                                                                $scope.nom = risposta.responseData;
+                                                                if ($scope.nom.result == "okay") {
+                                                                    $scope.nome = $scope.nom.stats;
+                                                                    $scope.request = $scope.nom.ipAddress;
+                                                             } else {
+                                                                    $scope.error = $scope.nom.result;
+                                                                                                                    }
+                                                                                                                });
+                                                                                                 }
+
+                                                                                            }
 
       }]);

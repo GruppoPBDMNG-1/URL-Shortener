@@ -5,6 +5,8 @@ import URLShortener.Stats.ClickStats;
 import URLShortener.Stats.GeoLocation;
 
 import java.text.DateFormatSymbols;
+
+import URLShortener.Stats.GetInternetIP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,6 +30,7 @@ public class ShortURLData {
     private static final int FIRST_TEN = 10;
     private GregorianCalendar gc = new GregorianCalendar();
     private GeoLocation geoLoc = GeoLocation.getIstance();
+    private GetInternetIP ipAdd = GetInternetIP.getIstance();
     private static String shortUrl;
     private String longUrl;
     private static DateFormatSymbols formatOfMonth = new DateFormatSymbols(Locale.ENGLISH);
@@ -255,7 +258,7 @@ public class ShortURLData {
         JSONObject countryJson = new JSONObject();
         countryJson.put(KEY, message.getMessage("COUNTRY"));
         try{
-            countryJson.put(VALUE1, geoLoc.getLocationCountry());
+            countryJson.put(VALUE1, geoLoc.getLocationCountry(ipAdd.getInternetIP()));
         }catch(Exception e){
             e.getMessage();
         }
@@ -264,7 +267,7 @@ public class ShortURLData {
         JSONObject cityJson = new JSONObject();
         cityJson.put(KEY, message.getMessage("CITY"));
         try{
-            cityJson.put(VALUE1, geoLoc.getLocationCity());
+            cityJson.put(VALUE1, geoLoc.getLocationCity(ipAdd.getInternetIP()));
         }catch(Exception e)
         {
             e.getMessage();

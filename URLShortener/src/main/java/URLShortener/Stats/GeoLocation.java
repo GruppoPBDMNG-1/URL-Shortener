@@ -15,7 +15,7 @@ public class GeoLocation {
     }
 
     private GeoLocation() {
-        String path = System.getProperty("user.dir") + "\\src\\main\\utilities";
+        String path = System.getProperty("user.dir") + "\\src\\main\\java\\utilities";
         file = new File(path + "\\GeoLiteCity.dat");
     }
 

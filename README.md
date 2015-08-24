@@ -1,5 +1,5 @@
 # URL-Shortener
-Dockerfile source: https://github.com/katiascavo/Docker.git
+Dockerfile source: https://github.com/GruppoPBDMNG-1/Dockerfile.git
 
 ##Installation guide
 Remember to set port 8080 into Virtual-Box
@@ -9,10 +9,10 @@ Remember to set port 8080 into Virtual-Box
 <pre>$ boot2docker ssh</pre>
 
 2. Clone this repository
-<pre>$ git clone https://github.com/katiascavo/Docker.git</pre>
+<pre>$ git clone https://github.com/GruppoPBDMNG-1/Dockerfile.git</pre>
 
 3. Building of image
-<pre>$ docker build --tag=gruppo_pbdmng_1/urlshortener Docker</pre>
+<pre>$ docker build --tag=gruppo_pbdmng_1/urlshortener Dockerfile</pre>
 
 4. Create and run the container
 <pre>$ docker run -d --name urlshortener -p 8080:8080 gruppo_pbdmng_1/urlshortener</pre>

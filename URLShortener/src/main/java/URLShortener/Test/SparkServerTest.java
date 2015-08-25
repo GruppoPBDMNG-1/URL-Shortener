@@ -8,12 +8,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Created by Vincenzo_Pc on 20/08/2015.
  */
 public class SparkServerTest extends TestCase {
 
     String cases= "http://www.google.com";
-    String cases1 = "http://fkt.in/ciao";
+    String cases1 = "www.sht.com/DxSoc";
     SparkServer prova = new SparkServer();
 
 
@@ -33,6 +33,7 @@ public class SparkServerTest extends TestCase {
     public void testSaveShort() throws Exception {
         JSONObject result = prova.saveShort(cases1, cases);
         assertTrue(result != null);
+       
     }
 
     /**
@@ -44,17 +45,14 @@ public class SparkServerTest extends TestCase {
         assertTrue(result != null);
     }
 
-    /**
-     * @throws Exception
-     */
-    /*@Test
+    @Test
     public void testGetGraph() throws Exception {
-        JSONObject result = prova.getGraph(cases1);
-        assertTrue(result != null);
-    }*/
+    }
 
     @Test
     public void testGetGraphPage() throws Exception {
+        JSONObject result = prova.getGraphPage(cases1);
+        assertTrue(result != null);
 
     }
 }

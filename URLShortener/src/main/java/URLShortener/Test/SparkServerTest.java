@@ -33,7 +33,7 @@ public class SparkServerTest extends TestCase {
     public void testSaveShort() throws Exception {
         JSONObject result = prova.saveShort(cases1, cases);
         assertTrue(result != null);
-       
+
     }
 
     /**
@@ -45,10 +45,9 @@ public class SparkServerTest extends TestCase {
         assertTrue(result != null);
     }
 
-    @Test
-    public void testGetGraph() throws Exception {
-    }
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void testGetGraphPage() throws Exception {
         JSONObject result = prova.getGraphPage(cases1);

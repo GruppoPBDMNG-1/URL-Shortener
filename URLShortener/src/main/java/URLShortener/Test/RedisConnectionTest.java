@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  */
 public class RedisConnectionTest extends TestCase{
 
-    String [] casi  ={"www.google.it","www.amazon.com","www.vincenzoMOlfettaInf.it"};
+    String [] casi  ={"www.google.it","www.amazon.com","www.fabiolabubici.it"};
     boolean [] aspetto  ={false,true,true};
 
 

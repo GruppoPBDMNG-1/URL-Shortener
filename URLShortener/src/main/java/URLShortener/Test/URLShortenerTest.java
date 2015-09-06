@@ -13,10 +13,9 @@ public class URLShortenerTest extends TestCase {
     String[] aspetto= {"www.google.com", "www.google.com", "www.google.com"};
     Boolean[] aspetto1={true, true, true};
 
-    String[] casi1= {"www.aa.it"};
-    String[] aspetto2={"http://fkt.in/ciao"};
+    String[] casi1= {"www.aa.it", "www.tart.it", "www.casa.it"};
+    String[] aspetto2={"http://fkt.in/ciao", "http://fkt.in/cart", "http://fkt.in/matc"};
 
-    private String domain = "http://fkt.in";
     URLShortener prova;
 
     /**
@@ -59,4 +58,5 @@ public class URLShortenerTest extends TestCase {
         }
     }
 }
+
 

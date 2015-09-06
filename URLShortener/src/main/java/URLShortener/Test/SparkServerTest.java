@@ -34,10 +34,13 @@ public class SparkServerTest extends TestCase {
      */
     @Test
     public void testSaveShort() throws Exception {
+
         for (int i=0; i<casi.length; i++) {
             JSONObject result = prova.saveShort(casi1[i], casi[i]);
             assertTrue(result != null);
         }
+
+
     }
 
     /**

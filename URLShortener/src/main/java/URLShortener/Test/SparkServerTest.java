@@ -12,8 +12,9 @@ import static org.junit.Assert.*;
  */
 public class SparkServerTest extends TestCase {
 
-    String cases= "http://www.google.com";
-    String cases1 = "www.sht.com/DxSoc";
+
+    String[] casi ={"http://www.google.com", "http://www.amazon.com","http://www.facebook.com" };
+    String[] casi1 = {"www.sht.com/DxSoc", "www.sht.com/SocDx", "www.sht.com/XdSoc"};
     SparkServer prova = new SparkServer();
 
 
@@ -22,8 +23,10 @@ public class SparkServerTest extends TestCase {
      */
     @Test
     public void testConvertToShortUrl() throws Exception {
-        JSONObject result = prova.convertToShortUrl(cases);
-        assertTrue(result != null);
+        for (int i=0; i<casi.length; i++) {
+            JSONObject result = prova.convertToShortUrl(casi[i]);
+            assertTrue(result != null);
+        }
     }
 
     /**
@@ -31,9 +34,10 @@ public class SparkServerTest extends TestCase {
      */
     @Test
     public void testSaveShort() throws Exception {
-        JSONObject result = prova.saveShort(cases1, cases);
-        assertTrue(result != null);
-       
+        for (int i=0; i<casi.length; i++) {
+            JSONObject result = prova.saveShort(casi1[i], casi[i]);
+            assertTrue(result != null);
+        }
     }
 
     /**
@@ -41,18 +45,18 @@ public class SparkServerTest extends TestCase {
      */
     @Test
     public void testViewWindow() throws Exception {
-        JSONObject result = prova.viewWindow(cases1);
-        assertTrue(result != null);
+        for (int i=0; i<casi1.length; i++) {
+            JSONObject result = prova.viewWindow(casi1[i]);
+            assertTrue(result != null);
+        }
     }
 
-    @Test
-    public void testGetGraph() throws Exception {
-    }
 
     @Test
     public void testGetGraphPage() throws Exception {
-        JSONObject result = prova.getGraphPage(cases1);
-        assertTrue(result != null);
-
+        for (int i=0; i<casi1.length; i++) {
+            JSONObject result = prova.getGraphPage(casi1[i]);
+            assertTrue(result != null);
+        }
     }
 }

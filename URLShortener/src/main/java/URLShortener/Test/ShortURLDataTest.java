@@ -53,14 +53,12 @@ public class ShortURLDataTest extends TestCase {
      * @throws Exception
      */
     @Test
-    // per funzionare questo test ovviamente i casi da testare devono essere inclusi all'interno del database redis
-    //se non lo sono prima generate uno short url dal long
-    // dopo di che testate che il metodo sia corretto
+
 
     public void testSaveShortLongURL() throws Exception {
         for(i=0;i<casoPrimo.length;i++){
             for(j=0;j<casoSecondo.length;j++){
-
+                ShortURLData.saveShortLongURL(casoPrimo[i], casoSecondo[i]);
                 boolean result = ShortURLData.saveShortLongURL(casoPrimo[i], casoSecondo[j]);
                 assertTrue(result==false);
             }

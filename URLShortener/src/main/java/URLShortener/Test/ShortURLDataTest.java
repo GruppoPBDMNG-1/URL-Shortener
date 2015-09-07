@@ -18,14 +18,16 @@ public class ShortURLDataTest extends TestCase {
     int j=0;
     String[] casoPrimo = {"www.sht.com/kWpcv","www.sht.com/4nlzR","www.sht.com/WIPmq","www.sht.com/5fDj0","www.sht.com/1RnpB"};
     String[] casoSecondo = {"www.caccapupu.com","www.gooogle.it!","www.amazon.sl","www.uniba.com","www.shazam.sc"};
-
+    String[] cases1 = {"broJG","SQhAJ","GHoHp","q8xTB","vlynY","IRosu","NuUr8","cxmDH"};
+    String[] cases2 = {"www.google.it","www.amazon.com","www.basididatiavanzati.de",
+        "https://www.focus.it","www.ciaosic.sl","www.happycasa.org","www.ultimoesameesto.ciao","www.tempesta.civediamo"};
     /**
      * @throws Exception
      */
     @Test
     public void testSetJsonString() throws Exception {
-        for(int i=0; i<casoPrimo.length;i++){
-            ShortURLData test = new ShortURLData(casoPrimo[i],casoSecondo[i]);
+        for(int k=0; k<cases1.length;k++){
+            ShortURLData test = new ShortURLData(cases1[k],cases2[k]);
             JsonValues result = test.setJsonString();
             Assert.assertTrue(result != null);
         }
@@ -37,8 +39,8 @@ public class ShortURLDataTest extends TestCase {
      */
     @Test
     public void testAddNewClick() throws Exception {
-        for (int i=0; i<casoPrimo.length;i++) {
-            ShortURLData test = new ShortURLData(casoPrimo[i],casoSecondo[i]);
+        for (int k=0; k<cases1.length;k++) {
+            ShortURLData test = new ShortURLData(cases1[k],cases2[k]);
             JsonValues result1 = test.setJsonString();
             Assert.assertTrue(result1 != null);
         }

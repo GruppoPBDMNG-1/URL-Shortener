@@ -8,6 +8,8 @@
 *.iws
 *.log
 *.swp
+*.ctrl
+*.lck
 *~
 logs
 node_modules

@@ -7,9 +7,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Fabiola on 20/08/2015.
- */
 public class ClickStatsTest extends TestCase {
 
     String[] cases = {"2015/08/20","2015/08/21","2015/08/20", "2015/08/19"};

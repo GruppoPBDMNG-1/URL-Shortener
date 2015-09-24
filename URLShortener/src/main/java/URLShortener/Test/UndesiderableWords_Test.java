@@ -6,9 +6,6 @@ import static org.junit.Assert.*;
 import URLShortener.Utility.UndesiderableWords;
 import junit.framework.TestCase;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Create by Vincenzo
@@ -32,7 +29,7 @@ public class UndesiderableWords_Test extends TestCase {
 
 	};
 
-	public boolean[] aspetto = { false, true, false, true, true, false, false,
+	public boolean[] aspetto = {  false, true, false, true, true, false, false,
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false,
@@ -40,22 +37,22 @@ public class UndesiderableWords_Test extends TestCase {
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false,
 			false, false, false, true, true, true, true, true, true, true,
-			true, true, true, true, true, true
+			true, true, true, true, true, true,
 
 	};
 
-	@Before
+	//@Before
 	public void setUp() throws Exception {
 	}
 
-	@After
+	//@After
 	public void tearDown() throws Exception {
 	}
 
     /**
      *
      */
-	@Test
+	//@Test
 	public void testCheckUndesiderableWords() {
 		for (int i = 0; i < casi.length; i++) {
 			boolean c = UndesiderableWords.checkUndesiderableWords(casi[i]);

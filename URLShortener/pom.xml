@@ -172,11 +172,7 @@
             <artifactId>junit</artifactId>
             <version>4.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus</artifactId>
-            <version>3.3.1</version>
-        </dependency>
+    
         <dependency>
             <groupId>org.dspace.dependencies</groupId>
             <artifactId>dspace-geoip</artifactId>
